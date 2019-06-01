@@ -13,16 +13,16 @@
     <!-- List -->
     <tr id="invoice-lines" *ngFor="let invoiceItem of invoice?.invoiceLines">
       <td>{{ invoiceItem.product }}</td>
-      <td>{{ invoiceItem.priceInclusiveVat }}</td>
-      <td>{{ invoiceItem.priceExclusiveVat }}</td>
+      <td>{{ invoiceItem.priceInclusiveVat.toFixed(2) }}</td>
+      <td>{{ invoiceItem.priceExclusiveVat.toFixed(2) }}</td>
       <td>&nbsp;</td>
     </tr>
 
     <!-- Total -->
     <tr>
       <td><b>Total</b></td>
-      <td id="totalPriceInclusiveVat">{{ invoice?.totalPriceInclusiveVat }}</td>
-      <td id="totalPriceExclusiveVat">{{ invoice?.totalPriceExclusiveVat }}</td>
+      <td id="totalPriceInclusiveVat">{{ invoice?.totalPriceInclusiveVat.toFixed(2) }}</td>
+      <td id="totalPriceExclusiveVat">{{ invoice?.totalPriceExclusiveVat.toFixed(2) }}</td>
     </tr>
 
     <!-- Input -->
@@ -39,7 +39,7 @@
       </td>
       <td>&nbsp;</td>
       <td>
-        <button id="add-button" (click)="addInvoice()">Add</button>
+        <button id="add-button" [disabled]="!product || !priceInclusiveVat" (click)="addInvoice()">Add</button>
       </td>
     </tr>
   </tbody>

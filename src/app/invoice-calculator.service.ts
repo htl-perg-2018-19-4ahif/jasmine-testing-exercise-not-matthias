@@ -26,7 +26,7 @@ export class InvoiceCalculatorService {
   constructor(private vatCategoriesService: VatCategoriesService) { }
 
   public CalculatePriceExclusiveVat(priceInclusiveVat: number, vatPercentage: number): number {
-    return priceInclusiveVat * (1 - vatPercentage);
+    return priceInclusiveVat / (1 + vatPercentage / 100);
   }
 
   public CalculateInvoice(invoiceLines: InvoiceLine[]): Invoice {

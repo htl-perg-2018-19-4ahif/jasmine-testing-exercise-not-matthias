@@ -10,14 +10,16 @@ export enum VatCategory {
 })
 export class VatCategoriesService {
 
-  private vatForCategory = {
-    Food: 0.1,
-    Drinks: 0.2
-  };
-
   constructor() { }
 
   public getVat(category: VatCategory): number {
-    return this.vatForCategory[category];
+    switch (category) {
+      case VatCategory.Drinks:
+        return 10;
+      case VatCategory.Food:
+        return 20;
+    }
+
+    return NaN;
   }
 }
