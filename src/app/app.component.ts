@@ -20,6 +20,12 @@ export class AppComponent {
   constructor(private invoiceCalculator: InvoiceCalculatorService) { }
 
   addInvoice() {
-    // ADD necessary code here
+    this.invoiceLines.push({
+      product: this.product,
+      vatCategory: this.vatCategories[this.vatCategoryString],
+      priceInclusiveVat: this.priceInclusiveVat
+    });
+
+    this.invoice = this.invoiceCalculator.CalculateInvoice(this.invoiceLines);
   }
 }

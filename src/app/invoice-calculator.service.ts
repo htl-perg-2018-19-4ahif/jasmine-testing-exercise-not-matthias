@@ -26,12 +26,30 @@ export class InvoiceCalculatorService {
   constructor(private vatCategoriesService: VatCategoriesService) { }
 
   public CalculatePriceExclusiveVat(priceInclusiveVat: number, vatPercentage: number): number {
-    // REPLACE the next line with the necessary code
-    return NaN;
+    return priceInclusiveVat * (1 - vatPercentage);
   }
 
   public CalculateInvoice(invoiceLines: InvoiceLine[]): Invoice {
-    // REPLACE the next line with the necessary code
-    return undefined;
+    const invoice: Invoice = {
+      invoiceLines: [],
+      totalPriceInclusiveVat: 0,
+      totalPriceExclusiveVat: 0,
+      totalVat: 0,
+    };
+
+    invoiceLines.forEach(invoiceLine => {
+      const priceInclusiveVat = invoiceLine.priceInclusiveVat;
+      const priceExclusiveVat =
+        this.CalculatePriceExclusiveVat(invoiceLine.priceInclusiveVat, this.vatCategoriesService.getVat(invoiceLine.vatCategory));
+
+      invoice.invoiceLines.push({
+        priceExclusiveVat
+      } as InvoiceLineComplete);
+      invoice.totalPriceInclusiveVat += priceInclusiveVat;
+      invoice.totalPriceExclusiveVat += priceExclusiveVat;
+      invoice.totalVat += priceInclusiveVat - priceExclusiveVat;
+    });
+
+    return invoice;
   }
 }
